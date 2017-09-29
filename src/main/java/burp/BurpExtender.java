@@ -26,16 +26,13 @@ public final class BurpExtender implements IBurpExtender, IHttpListener, IProxyL
 	@Override
 	public void processHttpMessage(final int toolFlag, final boolean messageIsRequest,
 			final IHttpRequestResponse messageInfo) {
-		if (toolFlag == IBurpExtenderCallbacks.TOOL_SCANNER || toolFlag == IBurpExtenderCallbacks.TOOL_INTRUDER ||
-				toolFlag == IBurpExtenderCallbacks.TOOL_PROXY) {
-			if (!Utils.isFastInfoSet(messageInfo, messageIsRequest, this.helpers)) {
-				return;
-			}
-			if (messageIsRequest) {
-				encodeHttpRequest(messageInfo);
-			} else {
-				decodeHttpResponse(messageInfo);
-			}
+		if (!Utils.isFastInfoSet(messageInfo, messageIsRequest, this.helpers)) {
+			return;
+		}
+		if (messageIsRequest) {
+			encodeHttpRequest(messageInfo);
+		} else {
+			decodeHttpResponse(messageInfo);
 		}
 	}
 
