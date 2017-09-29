@@ -1,0 +1,7 @@
+target/
+.classpath
+.project
+.settings
+fista.iml
+.idea/
+!/target/fista-1.0-SNAPSHOT.jar
