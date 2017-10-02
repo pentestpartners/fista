@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPOutputStream;
+import javax.xml.XMLConstants;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -18,7 +19,9 @@ final class FastInfoSetEncoder {
 
 	FastInfoSetEncoder() {
 		try {
-			this.transformer = TransformerFactory.newInstance().newTransformer();
+			final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			this.transformer = transformerFactory.newTransformer();
 		} catch (final TransformerConfigurationException e) {
 			throw new FastInfoSetTranslatorException("Error creating translator in the encoder", e);
 		}
